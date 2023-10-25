@@ -14,8 +14,8 @@ module.exports = {
     const cardPages = Math.ceil(cards.length / ITEMS_PER_PAGE)
     let currentPage = 0
 
-    const embed = await generateCardListEmbed(cards, currentPage, ITEMS_PER_PAGE)
-    const sentMsg = await message.channel.send(embed)
+    const myembed = await generateCardListEmbed(cards, currentPage, ITEMS_PER_PAGE)
+    const sentMsg = await message.channel.send({embeds:[myembed]})
 
     var db = new NeDB({filename: './carddata.db'})
     if (cardPages > 1) {
@@ -82,7 +82,7 @@ module.exports = {
         });
       } catch (err) {
         if (err instanceof Discord.Collection) {
-          sentMsg.edit({ embeds: [utils.embed(`angry`, `REQUEST EXPIRED`)], content: null });
+          sentMsg.edit({ embeds: [utils.embed(`angry`, `REQUEST EXPIRED`)], content: [""] });
         } else {
           sentMsg.edit({ embeds: [utils.embed(`malfunction`, `OH THAT'S NOT GOOD \`\`\`${err}\`\`\``, "Red")] });
         }

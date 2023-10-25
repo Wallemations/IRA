@@ -4,6 +4,6 @@ module.exports = {
   desc:"Sends something through me. Don't make me say something weird.",
   hidden:true,
   func:function(message){
-  	message.channel.send(message.content.substring(message.content.indexOf(" ")+1)).then(message.delete());
+  	message.channel.send({content:[message.content.substring(message.content.indexOf(" ")+1)]}).then(message.delete());
   }
 }

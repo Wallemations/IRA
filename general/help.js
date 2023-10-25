@@ -39,16 +39,18 @@ module.exports = {
       shitpostcommands = items.map(element => utils.elementToString(element, shitpost))
 
       let avatarURL = await client.users.fetch('163052863038291970').avatarURL;
-      let embed = new Discord.MessageEmbed()
+      let embed = new Discord.EmbedBuilder()
       .setTitle(`OKAY HERE'S YOUR OPTIONS ${config.version}`)
       .setColor("#f759e8")
       .setThumbnail(client.user.avatarURL)
-      .addField("**General Commands**", gencommands.join(""), true)
-      .addField("**Music Commands**", musiccommands.join(""), true)
-      .addField("**DJ Commands** (requires DJ role)", djcommands.join(""), true)
-      .addField("**Shitpost Commands**", shitpostcommands.join(""), true)
-      .setFooter("Created by Reaxt, Et al.", avatarURL );
-      message.author.send({embed}).then(() => {
+      .addFields(
+      {name:"**General Commands**", value: gencommands.join(""), inline:true},
+      {name:"**Music Commands**", value: musiccommands.join(""), inline:true},
+      {name:"**DJ Commands**", value: djcommands.join(""), inline:true},
+      {name:"**Shitpost Commands**", value: shitpostcommands.join(""), inline:true},
+      )
+      .setFooter({text:"Created by Reaxt, Et al.", iconURL:avatarURL});
+      message.author.send({embeds:[embed]}).then(() => {
         message.react("👌")
       });
 

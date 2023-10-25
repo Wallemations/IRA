@@ -71,6 +71,7 @@ function catchUp() {
                     })
                 } else {
                     console.log(`Failed to catch-up claims on card drop ${doc.channelId}/${doc.messageId}!`)
+                    logs.error(`Failed to catch-up claims on card drop ${doc.channelId}/${doc.messageId}!`)
                     checkIfEnded();
                 }
 

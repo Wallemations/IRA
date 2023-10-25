@@ -110,7 +110,7 @@ var shopList = [
 					global.cardmanager.updateCard(cardDoc).catch(err => reject(err))
 	
 					setTimeout(()=> {
-						message.channel.send(`**${message.member.displayName}**, Your new card!`, {embeds:[utils.cardEmbed(cardDoc)]})
+						message.channel.send({content:[`**${message.member.displayName}**, Your new card!`], embeds:[utils.cardEmbed(cardDoc)]})
 						message.channel.stopTyping()
 						resolve()
 					}, 1500)
@@ -142,7 +142,7 @@ for (let prop in eventTypes) {
 						global.cardmanager.updateCard(cardDoc).catch(err => reject(err))
 		
 						setTimeout(()=> {
-							message.channel.send(`**${message.member.displayName}**, Your new card!`, {embeds:[utils.cardEmbed(cardDoc)]})
+							message.channel.send({content:[`**${message.member.displayName}**, Your new card!`], embeds:[utils.cardEmbed(cardDoc)]})
 							message.channel.stopTyping()
 							resolve()
 						}, 1500)

@@ -25,7 +25,7 @@ module.exports = {
       if (genuine) {
         doc.genuine = true
       }
-      let sentMsg = await message.channel.send(`Card drop! React with ${reaction} to claim the card below.`, {embeds:[utils.cardEmbed(doc).setFooter(`This drop is valid for ${things[2]} hours.`)]});
+      let sentMsg = await message.channel.send({content:[`Card drop! React with ${reaction} to claim the card below.`], embeds:[utils.cardEmbed(doc).setFooter(`This drop is valid for ${things[2]} hours.`)]});
       global.dropmanager.createDrop(message, sentMsg, endTime.getTime(), reaction, things[1], genuine);
       sentMsg.react(reaction);
     } catch(err) {

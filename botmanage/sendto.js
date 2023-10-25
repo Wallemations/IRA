@@ -9,16 +9,16 @@ module.exports = {
 
   	let mention = message.content.split(" ")[1]
   	let targetChannel;
-  	let content;
+  	let mycontent;
     if (mention && mention.startsWith("<#") && mention.endsWith(">")) {
 			targetChannel = message.mentions.channels.first()
-			content = message.content.substring(message.content.indexOf(" ", message.content.indexOf(" ")+1))
+			mycontent = message.content.substring(message.content.indexOf(" ", message.content.indexOf(" ")+1))
 			global.sendToDest = targetChannel;
 		
     } else {
     	if (global.sendToDest) {
     		targetChannel = global.sendToDest;
-    		content = message.content.substring(message.content.indexOf(" "))
+    		mycontent = message.content.substring(message.content.indexOf(" "))
 
     	} else{
     		return message.channel.send({embeds:[utils.embed("malfunction", "NOT A REAL CHANNEL")]})
@@ -28,7 +28,7 @@ module.exports = {
 
     // band-aidy way to fix empty messages
     if (message.content.endsWith("!sendTo") || (message.content.endsWith(mention) && message.mentions.channels.first())) {
-    	content = '';
+    	mycontent = '';
     }
 
     // some stuff for effect
@@ -37,11 +37,11 @@ module.exports = {
 		if (targetChannel.type == "text") {
 			if (message.attachments && message.attachments.size > 0) {
 				const attachment = new Attachment(message.attachments.first().url)
-				targetChannel.send(content, attachment).catch(err => {
+				targetChannel.send({content:[mycontent], embeds:[attachment]}).catch(err => {
 					message.channel.send({embeds:[utils.embed("malfunction", `OH THAT'S NOT GOOD \`\`\`${err}\`\`\``,"Red")]})
 				})
 			} else {
-				targetChannel.send(content).catch(err => {
+				targetChannel.send(mycontent).catch(err => {
 					message.channel.send({embeds:[utils.embed("malfunction", `OH THAT'S NOT GOOD \`\`\`${err}\`\`\``,"Red")]})
 				})
 			}

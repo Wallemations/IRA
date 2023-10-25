@@ -82,7 +82,7 @@ module.exports = {
         });
       } catch (err) {
         if (err instanceof Discord.Collection) {
-          sentMsg.edit({ embeds: [utils.embed(`angry`, `REQUEST EXPIRED`)], content: null });
+          sentMsg.edit({ embeds: [utils.embed(`angry`, `REQUEST EXPIRED`)], content: [""] });
         } else {
           sentMsg.edit({ embeds: [utils.embed(`malfunction`, `OH THAT'S NOT GOOD \`\`\`${err}\`\`\``, "Red")] });
         }
@@ -98,15 +98,15 @@ async function generateCardListEmbed(cards, currentPage, itemsPerPage) {
   const displayCards = cards.slice(startIndex, endIndex)
 
   
-  const embed = new Discord.MessageEmbed()
-    .setAuthor(`Card List`, "https://cdn.discordapp.com/attachments/512493868839731201/905100842460401724/sandalidle2x.gif")
-	.setDescription("`Enter the number of a card to select it.`")
+  const embed = new Discord.EmbedBuilder()
+    .setAuthor({name: `Card List`, iconURL:"https://cdn.discordapp.com/attachments/512493868839731201/905100842460401724/sandalidle2x.gif"})
+	  .setDescription("`Enter the number of a card to select it.`")
     .setColor("#f759e8")
-    .setFooter(`Page ${(startIndex/ITEMS_PER_PAGE)+1}/${Math.ceil((cards.length/ITEMS_PER_PAGE))}`)
+    .setFooter({text: `Page ${(startIndex/ITEMS_PER_PAGE)+1}/${Math.ceil((cards.length/ITEMS_PER_PAGE))}`})
 
   for (let i = 0; i < displayCards.length; i++) {
     const card = displayCards[i]
-    embed.addField(`[${startIndex + i + 1}] ${card.displayName}`, `name: \`${card.name}\``)
+    embed.addFields({name: `[${startIndex + i + 1}] ${card.displayName}`, value: `name: \`${card.name}\``})
   }
 
   return embed

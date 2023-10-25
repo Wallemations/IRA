@@ -153,10 +153,10 @@ function evalcmd(message) {
     try {
       evalresponse = eval(content)
     } catch(err) {
-      return message.channel.send("An Error Occured with the input " + content + "\n ```" + err.stack + "```")
+      return message.channel.send(["An Error Occured with the input " + content + "\n ```" + err.stack + "```"])
     } 
-    if(evalresponse === undefined) {return message.channel.send("```undefined```")} 
-    else if (evalresponse === null) {message.channel.send("```null```")} 
+    if(evalresponse === undefined) {return message.channel.send({content:["```undefined```"]})} 
+    else if (evalresponse === null) {message.channel.send({content:["```null```"]})} 
     else {
       message.channel.send({embeds:[utils.embed("happy", `Eval response:\`\`\`${evalresponse.toString()}\`\`\``)]})
     }
@@ -179,11 +179,11 @@ client.on("ready", async function() {
   let shutdownstatus = await fsPromises.readFile("./shutdownstatus.json");
   if (JSON.parse(shutdownstatus).shutdown == false) {
     if (logChannel) {
-      logChannel.send(null,{embeds:[utils.embed("malfunction", "OKAY I DON'T THINK I SHUT DOWN PROPERLY THERE", undefined, `Version ${version}`)]})
+      logChannel.send({embeds:[utils.embed("malfunction", "OKAY I DON'T THINK I SHUT DOWN PROPERLY THERE", undefined, `Version ${version}`)]})
     }
     
   } else {
-    logChannel.send(null,{embeds:[utils.embed("happy", `HEY IDIOTS I'M RUNNIN' ON VERSION ${version} TODAY`)]})
+    logChannel.send({embeds:[utils.embed("happy", `HEY IDIOTS I'M RUNNIN' ON VERSION ${version} TODAY`)]})
   }
   fsPromises.writeFile("./shutdownstatus.json", `{"shutdown":false}`, (err) => {})
 
